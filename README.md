@@ -34,3 +34,30 @@ git clone https://github.com/rkanakam2020/Anthos-on-BM-install-on-GCE.git
 Step 4:
 Configure the network with vxlan
 Run the shell script vxlan.sh in the repo
+
+Step 5:
+Generate ssh keys
+
+ssh-keygen # don't enter any passphrase, use default file paths 
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# verify you can login without password
+ssh [your-username]@[ip address of your machine] # check setenv.sh script for the ip
+
+Step 6:
+Generate SSH keys for root:
+
+sudo bash
+ssh-keygen # don't enter any passphrase, use default file paths 
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# verify you can login without password
+ssh root@[ip address of your machine] # check setenv.sh script for the ip
+
+Step 7:
+Install docker and make sure it is accessible as non-root user
+
+sudo apt-get install -y docker
+sudo apt-get install -y docker.io
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker 
+docker run hello-world
