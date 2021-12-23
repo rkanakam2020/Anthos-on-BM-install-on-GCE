@@ -61,3 +61,31 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker 
 docker run hello-world
+
+Step 8:
+setup bmctl
+
+cd ~
+gsutil cp gs://anthos-baremetal-release/bmctl/1.8.2/linux-amd64/bmctl bmctl
+chmod a+x bmctl
+
+Step 9:
+Generate the cluster config and create the cluster
+
+cd $HOME
+./bmctl create config -c [cluster-name] \
+  --enable-apis --create-service-accounts --project-id=$PROJECT_ID
+  
+  Step 10:
+  cp Anthos-on-BM-install-on-GCE/single-gce-abm-with-vxlan.yaml bmctl-workspace/[cluster-name]/[cluster-name].yaml
+  
+Step 11:
+Create the cluster
+
+sudo bash
+gcloud auth application-default login
+. ./Anthos-on-BM-install-on-GCE/setenv.sh
+./bmctl create cluster -c gce-abm-cluster
+
+Step 12:
+Generate cluster login by running the script cluster-login-token.sh
