@@ -31,3 +31,6 @@ Step 3:
 Clone the repository:
 git clone https://github.com/rkanakam2020/Anthos-on-BM-install-on-GCE.git
 
+Step 4:
+Configure the network with vxlan
+Run the shell script vxlan.sh in the repo
